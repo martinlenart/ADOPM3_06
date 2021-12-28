@@ -10,6 +10,7 @@ namespace ADOPM3_06_02
     public class Address { public string Street, PostCode; }
     public class USAddress : Address { }
     public class AUAddress : Address { }
+
     public class Person
     {
         public string Name;
@@ -18,6 +19,8 @@ namespace ADOPM3_06_02
         //[XmlArray("BestAdresses")]
         //[XmlArrayItem ("GoodAdress")]
         public List<Address> pastAddresses = new List<Address>();
+
+        public Person BestFriend;
     }
     class Program
     {
@@ -27,9 +30,10 @@ namespace ADOPM3_06_02
             {
                 Name = "Stacey",
                 pastAddresses = new List<Address>
-                { new USAddress { Street = "An US Street", PostCode = "An US Zip" },
-                  new AUAddress { Street = "An AU Street", PostCode = "An AU Zip" },
-                  new Address { Street = "A Generic Street", PostCode = "A Generic Zip" }}
+                { new USAddress { Street = "An US Street", PostCode = "An US Zip" } as Address,
+                  new AUAddress { Street = "An AU Street", PostCode = "An AU Zip" }as Address,
+                  new Address { Street = "A Generic Street", PostCode = "A Generic Zip" }},
+                BestFriend = new Person { Name = "Bob"}
             };
 
             Console.WriteLine("Serialized");

@@ -11,19 +11,27 @@ namespace ADOPM3_06_03
 		public string Name;
 		public Secret mySecret;
 	}
-	public class Secret : IXmlSerializable
+	public class Secret //: IXmlSerializable
 	{
-		private string aSecret = "A private field"; // Note that the field is private
+		private string aSecret; // Note that the field is private
+		
+		/*
 		public XmlSchema GetSchema() => null;
 		public void ReadXml(XmlReader reader)
 		{
 			reader.ReadStartElement();
-			aSecret = reader.ReadElementContentAsString("mySecret", "");
+			aSecret = reader.ReadElementContentAsString("aSecret", "");
 			reader.ReadEndElement();
 		}
 		public void WriteXml(XmlWriter writer)
 		{
-			writer.WriteElementString("mySecret", aSecret);
+			writer.WriteElementString("aSecret", aSecret);
+		}
+		*/
+
+		public void SetSecret ()
+        {
+			aSecret = "A private field";
 		}
 	}
 	class Program
@@ -31,6 +39,7 @@ namespace ADOPM3_06_03
         static void Main(string[] args)
         {
 			Person p = new Person { Name = "Anne", mySecret = new Secret()};
+			p.mySecret.SetSecret();
 
 			var xs = new XmlSerializer(typeof(Person));
 			using (Stream s = File.Create(fname("Example8_03.xml")))

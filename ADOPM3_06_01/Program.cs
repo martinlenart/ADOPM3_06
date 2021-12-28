@@ -7,9 +7,14 @@ namespace ADOPM3_06_01
     [XmlRoot("Candidate", Namespace = "http://mynamespace/test/")]
     public class Person
     {
-        [XmlElement("FirstName")] public string Name { get; set; }
-        [XmlAttribute("RoughAge")] public int Age { get; set; }
-        [XmlIgnore()] public DateTime Birthday { get; set; }
+        [XmlElement("FirstName")] 
+        public string Name { get; set; }
+
+        [XmlAttribute("RoughAge")] 
+        public int Age { get; set; }
+ 
+        [XmlIgnore()] 
+        public DateTime Birthday { get; set; }
     }
     class Program
     {
