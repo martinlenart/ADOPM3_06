@@ -6,6 +6,8 @@ using System.Text.Json.Serialization;
 
 namespace ADOPM3_06_04
 {
+    public class USAddress : Address { }
+    public class AUAddress : Address { }
     public class Address 
     { 
         public string Street { get; set; }
@@ -26,9 +28,17 @@ namespace ADOPM3_06_04
                 Name = "Stacey",
                 currentAddress = new Address { Street = "An Address", PostCode = "A Zip Code" },
                 pastAddresses = new List<Address>
-                { new Address { Street = "An US Street", PostCode = "An US Zip" },
-                  new Address { Street = "An AU Street", PostCode = "An AU Zip" }}
+                { new USAddress { Street = "An US Street", PostCode = "An US Zip" },
+                  new AUAddress { Street = "An AU Street", PostCode = "An AU Zip" },
+                  new Address { Street = "A Generic Street", PostCode = "A Generic Zip" }}
             };
+
+            Console.WriteLine("Serialized");
+            Console.WriteLine($"{p.Name}"); // Stacy
+            foreach (var item in p.pastAddresses)
+            {
+                Console.WriteLine(item.GetType());
+            }
 
             using (Stream s = File.Create(fname("Example8_04.json")))
             using (TextWriter writer = new StreamWriter(s))
@@ -40,9 +50,13 @@ namespace ADOPM3_06_04
 
                 p2 = JsonSerializer.Deserialize<Person>(reader.ReadToEnd());
 
+            Console.WriteLine();
+            Console.WriteLine("Serialized");
             Console.WriteLine($"{p2.Name}"); // Stacy
-            Console.WriteLine(p2.pastAddresses[0].GetType());
-            Console.WriteLine(p2.pastAddresses[1].GetType());
+            foreach (var item in p2.pastAddresses)
+            {
+                Console.WriteLine(item.GetType());      //Note the difference
+            }
 
 
             static string fname(string name)

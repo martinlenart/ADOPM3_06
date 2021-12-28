@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace ADOPM3_06_02
@@ -15,15 +15,29 @@ namespace ADOPM3_06_02
         public string Name;
 
         [XmlElement("pastAddresses")]
+        //[XmlArray("BestAdresses")]
+        //[XmlArrayItem ("GoodAdress")]
         public List<Address> pastAddresses = new List<Address>();
     }
     class Program
     {
         static void Main(string[] args)
         {
-            Person p = new Person { Name = "Stacey", pastAddresses = new List<Address>
+            Person p = new Person
+            {
+                Name = "Stacey",
+                pastAddresses = new List<Address>
                 { new USAddress { Street = "An US Street", PostCode = "An US Zip" },
-                  new AUAddress { Street = "An AU Street", PostCode = "An AU Zip" }}};
+                  new AUAddress { Street = "An AU Street", PostCode = "An AU Zip" },
+                  new Address { Street = "A Generic Street", PostCode = "A Generic Zip" }}
+            };
+
+            Console.WriteLine("Serialized");
+            Console.WriteLine($"{p.Name}"); // Stacy
+            foreach (var item in p.pastAddresses)
+            {
+                Console.WriteLine(item.GetType());
+            }
 
             var xs = new XmlSerializer(typeof(Person));
             using (Stream s = File.Create(fname("Example8_02.xml")))
@@ -33,10 +47,13 @@ namespace ADOPM3_06_02
             using (Stream s = File.OpenRead(fname("Example8_02.xml")))
                 p2 = (Person)xs.Deserialize(s);
 
+            Console.WriteLine();
+            Console.WriteLine("DeSerialized");
             Console.WriteLine($"{p2.Name}"); // Stacy
-            Console.WriteLine(p2.pastAddresses[0].GetType());
-            Console.WriteLine(p2.pastAddresses[1].GetType());
-
+            foreach (var item in p2.pastAddresses)
+            {
+                Console.WriteLine(item.GetType());
+            }
 
             static string fname(string name)
             {
