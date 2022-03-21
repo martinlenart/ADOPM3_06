@@ -15,7 +15,7 @@ namespace ADOPM3_06_02
     public class Person
     {
         public string Name;
-        public string Age;
+        public int Age;
 
         [XmlElement("pastAddresses")]
         //[XmlArray("BestAdresses")]
@@ -28,7 +28,6 @@ namespace ADOPM3_06_02
     {
         static void Main(string[] args)
         {
-            /*
             Person p = new Person
             {
                 Name = "Stacey", Age = 25,
@@ -49,9 +48,8 @@ namespace ADOPM3_06_02
             var xs = new XmlSerializer(typeof(Person));
             using (Stream s = File.Create(fname("Example8_02.xml")))
                 xs.Serialize(s, p);
- */
+ 
             Person p2;
-            var xs = new XmlSerializer(typeof(Person));
             using (Stream s = File.OpenRead(fname("Example8_02b.xml")))
                 p2 = (Person)xs.Deserialize(s);
 
