@@ -31,6 +31,7 @@ namespace ADOPM3_06_01
             using (Stream s = File.OpenRead(fname("Example8_01.xml")))
                 p2 = (Person)xs.Deserialize(s);
 
+            Console.WriteLine(fname("Example8_01.xml"));
             Console.WriteLine($"{p2.Name} {p2.Age}"); // Stacy 30
             Console.WriteLine(p2.Birthday); // 0001-01-01 which is default date
 
