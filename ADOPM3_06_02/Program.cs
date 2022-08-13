@@ -14,10 +14,10 @@ namespace ADOPM3_06_02
     [XmlInclude(typeof(Person))]
     public class Person
     {
-        public string Name;
-        public int Age;
+        public string Name;             //Field
+        public int Age { get; set; }    //Property
 
-        [XmlElement("pastAddresses")]
+        //[XmlElement("pastAddresses")]
         //[XmlArray("BestAdresses")]
         //[XmlArrayItem ("GoodAdress")]
         public List<Address> pastAddresses = new List<Address>();
@@ -32,8 +32,8 @@ namespace ADOPM3_06_02
             {
                 Name = "Stacey", Age = 25,
                 pastAddresses = new List<Address>
-                { new USAddress { Street = "An US Street", PostCode = "An US Zip" } as Address,
-                  new AUAddress { Street = "An AU Street", PostCode = "An AU Zip" }as Address,
+                { new USAddress { Street = "An US Street", PostCode = "An US Zip" },
+                  new AUAddress { Street = "An AU Street", PostCode = "An AU Zip" },
                   new Address { Street = "A Generic Street", PostCode = "A Generic Zip" }},
                 BestFriend = new Person { Name = "Bob", Age = 30}
             };
@@ -48,9 +48,11 @@ namespace ADOPM3_06_02
             var xs = new XmlSerializer(typeof(Person));
             using (Stream s = File.Create(fname("Example8_02.xml")))
                 xs.Serialize(s, p);
- 
+
+
+            
             Person p2;
-            using (Stream s = File.OpenRead(fname("Example8_02b.xml")))
+            using (Stream s = File.OpenRead(fname("Example8_02.xml")))
                 p2 = (Person)xs.Deserialize(s);
 
             Console.WriteLine();
@@ -60,6 +62,7 @@ namespace ADOPM3_06_02
             {
                 Console.WriteLine(item.GetType());
             }
+            
 
             static string fname(string name)
             {
