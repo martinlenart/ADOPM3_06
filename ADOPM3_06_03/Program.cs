@@ -11,12 +11,13 @@ namespace ADOPM3_06_03
 		public string Name;
 		public Secret mySecret;
 	}
-	public class Secret //: IXmlSerializable
+	public class Secret : IXmlSerializable
 	{
 		private string aSecret; // Note that the field is private
 		
-		/*
+		
 		public XmlSchema GetSchema() => null;
+
 		public void ReadXml(XmlReader reader)
 		{
 			reader.ReadStartElement();
@@ -27,7 +28,7 @@ namespace ADOPM3_06_03
 		{
 			writer.WriteElementString("aSecret", aSecret);
 		}
-		*/
+		
 
 		public void SetSecret ()
         {
@@ -45,12 +46,13 @@ namespace ADOPM3_06_03
 			using (Stream s = File.Create(fname("Example8_03.xml")))
 				xs.Serialize(s, p);
 
+			
 			Person p2;
 			using (Stream s = File.OpenRead(fname("Example8_03.xml")))
 				p2 = (Person)xs.Deserialize(s);
 
 			Console.WriteLine($"{p2.Name}"); // Anne
-
+			
 			static string fname(string name)
 			{
 				var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+//using System.Text.Json.Serialization;
 
 namespace ADOPM3_06_04
 {
@@ -40,10 +40,16 @@ namespace ADOPM3_06_04
                 Console.WriteLine(item.GetType());
             }
 
+            //Console.WriteLine();
+            //Console.WriteLine(JsonSerializer.Serialize<Person>(p, new JsonSerializerOptions() { WriteIndented = true }));
+            
             using (Stream s = File.Create(fname("Example8_04.json")))
             using (TextWriter writer = new StreamWriter(s))
-                writer.Write(JsonSerializer.Serialize<Person>(p, new JsonSerializerOptions() { WriteIndented = true }));
+                writer.Write(JsonSerializer.Serialize<Person>(p /*, new JsonSerializerOptions() { WriteIndented = true }*/));
+            
 
+
+            
             Person p2;
             using (Stream s = File.OpenRead(fname("Example8_04.json")))
             using (TextReader reader = new StreamReader(s))
@@ -57,11 +63,11 @@ namespace ADOPM3_06_04
             {
                 Console.WriteLine(item.GetType());      //Note the difference
             }
-
+            
 
             static string fname(string name)
             {
-                var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 documentPath = Path.Combine(documentPath, "AOOP2", "Examples");
                 if (!Directory.Exists(documentPath)) Directory.CreateDirectory(documentPath);
                 return Path.Combine(documentPath, name);

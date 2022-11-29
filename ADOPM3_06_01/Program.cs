@@ -4,18 +4,26 @@ using System.Xml.Serialization;
 
 namespace ADOPM3_06_01
 {
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public DateTime Birthday { get; set; }
+    }
+    /*
     [XmlRoot("Candidate", Namespace = "http://mynamespace/test/")]
     public class Person
     {
-        [XmlElement("FirstName")] 
+        [XmlElement("FirstName")]
         public string Name { get; set; }
 
-        [XmlAttribute("RoughAge")] 
+        [XmlAttribute("RoughAge")]
         public int Age { get; set; }
- 
-        [XmlIgnore()] 
+
+        [XmlIgnore()]
         public DateTime Birthday { get; set; }
     }
+    */
     class Program
     {
         static void Main(string[] args)
